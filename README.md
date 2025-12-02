@@ -1,6 +1,76 @@
-# ☕ Sip
+# ☕ Sip - Your Cozy New Tab Page
 
-A cozy new tab page featuring beautiful Catppuccin color themes, glassmorphism effects, and dynamic personalization. Take a sip of serenity with every new tab.
+Transform your browser's new tab into a beautiful, personalized workspace with Sip. Featuring stunning Catppuccin themes, glassmorphism effects, and intelligent customization, Sip makes every new tab a delightful experience.
+
+## ✨ Key Features
+
+**Beautiful Design**
+- Gorgeous Catppuccin color themes (Mocha dark & Latte light)
+- Modern glassmorphism UI with ambient glow effects
+- Smooth animations and responsive layout
+
+**Smart Search**
+- Integrated search respecting your default search engine (Chrome)
+- Quick engine switching for Google, DuckDuckGo, GitHub, YouTube, Bing, Amazon, and Wikipedia
+- Keyboard shortcuts for lightning-fast navigation
+
+**Personalization**
+- Dynamic time-based greetings with beautiful icons
+- Real-time weather with OpenWeather API integration
+- Customizable quick links organized by categories (up to 8 categories, 10 links each)
+- Choose between 12hr/24hr time formats
+- Toggle between Fahrenheit and Celsius
+- Show/hide inspirational quotes
+
+**Productivity**
+- Organize your favorite sites in customizable categories
+- Built-in help system for easy icon customization
+- All settings persist locally (no data collection)
+- Keyboard shortcuts: `/` for search, `1-7` for engines, `Esc` to clear
+
+**Privacy First**
+- No data collection or tracking
+- All preferences stored locally on your device
+- Open source and transparent
+
+## 🎯 Perfect For
+
+- Developers who want quick access to GitHub, Stack Overflow, and dev tools
+- Anyone who values beautiful, functional design
+- Users who want a personalized browsing experience
+- Privacy-conscious individuals
+
+## 🔒 Privacy & Permissions
+
+**Required Permissions:**
+- `search` - To integrate with your browser's default search engine (Chrome only)
+
+**What We DON'T Do:**
+- No data collection or analytics
+- No tracking or monitoring
+- No remote servers (except OpenWeather API if you configure it)
+- All settings stored locally using browser's localStorage
+
+See our full [Privacy Policy](https://github.com/bgibson72/start-page-v3/blob/main/PRIVACY.md) for complete details.
+
+## 📸 Screenshots & More
+
+Visit our [GitHub repository](https://github.com/bgibson72/start-page-v3) for:
+- Detailed screenshots
+- Customization guide
+- Icon usage instructions
+- Development information
+- Source code
+
+## 🆘 Support
+
+Need help? Have suggestions?
+- Open an issue on [GitHub](https://github.com/bgibson72/start-page-v3/issues)
+- Read our detailed [README](https://github.com/bgibson72/start-page-v3)
+
+---
+
+Made with ☕ and 💜 using Catppuccin themes
 
 ![Preview Image](sip_preview.png)
 
