@@ -8,15 +8,105 @@ Transform your browser's new tab into a beautiful, personalized workspace with S
 
 ### 🎨 **9 Color Schemes with Light/Dark Modes**
 Sip now includes 9 beautiful color schemes, each with both light and dark variants:
-- **Catppuccin** - Warm, soothing pastels (original default)
-- **Nord** - Cool, arctic-inspired blues and grays
-- **Gruvbox** - Retro, warm earthy tones with high contrast
-- **Tokyo Night** - Modern deep blues with vibrant accents
-- **Dracula** - Classic vibrant purples and cyans
-- **Solarized** - Precision colors designed for readability
-- **Kanagawa** - Japanese-inspired muted, natural tones
-- **Ayu** - Minimal modern with bright accents
-- **Monochrome** - Pure black & white for maximum focus
+
+<details>
+<summary><strong>Catppuccin</strong> - Warm, soothing pastels (original default)</summary>
+
+#### Dark Mode (Mocha)
+![Catppuccin Dark](screenshots/themes/catppuccin/dark/Screenshot%202025-12-17%20at%2012-21-22%20startpage.png)
+
+#### Light Mode (Latte)
+![Catppuccin Light](screenshots/themes/catppuccin/light/Screenshot%202025-12-17%20at%2012-21-02%20startpage.png)
+
+</details>
+
+<details>
+<summary><strong>Nord</strong> - Cool, arctic-inspired blues and grays</summary>
+
+#### Dark Mode
+![Nord Dark](screenshots/themes/nord/dark/Screenshot%202025-12-17%20at%2012-21-49%20startpage.png)
+
+#### Light Mode
+![Nord Light](screenshots/themes/nord/light/Screenshot%202025-12-17%20at%2012-22-01%20startpage.png)
+
+</details>
+
+<details>
+<summary><strong>Gruvbox</strong> - Retro, warm earthy tones with high contrast</summary>
+
+#### Dark Mode
+![Gruvbox Dark](screenshots/themes/gruvbox/dark/Screenshot%202025-12-17%20at%2012-22-30%20startpage.png)
+
+#### Light Mode
+![Gruvbox Light](screenshots/themes/gruvbox/light/Screenshot%202025-12-17%20at%2012-22-12%20startpage.png)
+
+</details>
+
+<details>
+<summary><strong>Tokyo Night</strong> - Modern deep blues with vibrant accents</summary>
+
+#### Dark Mode
+![Tokyo Night Dark](screenshots/themes/tokyo-night/dark/Screenshot%202025-12-17%20at%2012-22-40%20startpage.png)
+
+#### Light Mode
+![Tokyo Night Light](screenshots/themes/tokyo-night/light/Screenshot%202025-12-17%20at%2012-22-50%20startpage.png)
+
+</details>
+
+<details>
+<summary><strong>Dracula</strong> - Classic vibrant purples and cyans</summary>
+
+#### Dark Mode
+![Dracula Dark](screenshots/themes/dracula/dark/Screenshot%202025-12-17%20at%2012-23-20%20startpage.png)
+
+#### Light Mode
+![Dracula Light](screenshots/themes/dracula/light/Screenshot%202025-12-17%20at%2012-23-09%20startpage.png)
+
+</details>
+
+<details>
+<summary><strong>Solarized</strong> - Precision colors designed for readability</summary>
+
+#### Dark Mode
+![Solarized Dark](screenshots/themes/solarized/dark/Screenshot%202025-12-17%20at%2012-23-31%20startpage.png)
+
+#### Light Mode
+![Solarized Light](screenshots/themes/solarized/light/Screenshot%202025-12-17%20at%2012-23-41%20startpage.png)
+
+</details>
+
+<details>
+<summary><strong>Kanagawa</strong> - Japanese-inspired muted, natural tones</summary>
+
+#### Dark Mode (Wave)
+![Kanagawa Dark](screenshots/themes/kanagawa/dark/Screenshot%202025-12-17%20at%2012-24-05%20startpage.png)
+
+#### Light Mode (Lotus)
+![Kanagawa Light](screenshots/themes/kanagawa/light/Screenshot%202025-12-17%20at%2012-23-52%20startpage.png)
+
+</details>
+
+<details>
+<summary><strong>Ayu</strong> - Minimal modern with bright accents</summary>
+
+#### Dark Mode
+![Ayu Dark](screenshots/themes/ayu/dark/Screenshot%202025-12-17%20at%2012-24-21%20startpage.png)
+
+#### Light Mode
+![Ayu Light](screenshots/themes/ayu/light/Screenshot%202025-12-17%20at%2012-24-31%20startpage.png)
+
+</details>
+
+<details>
+<summary><strong>Monochrome</strong> - Pure black & white for maximum focus</summary>
+
+#### Dark Mode (White on Black)
+![Monochrome Dark](screenshots/themes/monochrome/dark/Screenshot%202025-12-17%20at%2012-24-54%20startpage.png)
+
+#### Light Mode (Black on White)
+![Monochrome Light](screenshots/themes/monochrome/light/Screenshot%202025-12-17%20at%2012-24-44%20startpage.png)
+
+</details>
 
 ### ⚙️ **Enhanced Settings & Customization**
 - **Click Time to Toggle** - Click the clock to quickly switch between 12h/24h format
@@ -43,10 +133,22 @@ Sip now includes 9 beautiful color schemes, each with both light and dark varian
 - Comprehensive icon customization guide integrated into settings
 
 ### 🎭 **UI/UX Improvements**
-- Custom-styled checkboxes that blend seamlessly with each theme
+- Convert color scheme selector to dropdown for scalability
 - Removed redundant settings (quotes toggle now managed via Footer tab)
 - Better responsive design for settings with tab wrapping
+- Enhanced color mode visibility based on theme selection
 - Developer credits section at the bottom
+
+<details>
+<summary>Settings Panel Screenshots</summary>
+
+#### Settings Overview
+![Settings Panel](screenshots/settings/settings.png)
+
+#### Settings Panels (High Resolution)
+![Settings Detailed](screenshots/settings/settings-1280x800.jpg)
+
+</details>
 
 ---
 
