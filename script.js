@@ -12,7 +12,7 @@ const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 // Global Timer References (for cleanup)
 // ========================================
 
-let timeUpdateInterval = null;
+let timeUpdateAnimationFrame = null;
 let weatherUpdateInterval = null;
 
 // ========================================
@@ -1405,23 +1405,38 @@ function init() {
     renderLinksGrid();
     renderSearchEngines();
     
-    // Update time immediately and every second
+    // Update time immediately and start animation frame loop
     updateDateTime();
-    // Clear any existing interval before creating new one
-    if (timeUpdateInterval) {
-        clearInterval(timeUpdateInterval);
+    // Cancel any existing animation frame
+    if (timeUpdateAnimationFrame) {
+        cancelAnimationFrame(timeUpdateAnimationFrame);
     }
-    timeUpdateInterval = setInterval(() => {
+    // Use requestAnimationFrame for time updates (automatically pauses when page hidden)
+    let lastTimeUpdate = Date.now();
+    function timeUpdateLoop() {
         try {
-            updateDateTime();
-        } catch (error) {
-            console.error('Error in time update:', error);
-            if (timeUpdateInterval) {
-                clearInterval(timeUpdateInterval);
-                timeUpdateInterval = null;
+            // Stop if page is hidden or document is invalid
+            if (document.hidden || !document.body || !timeElement) {
+                return; // Don't schedule next frame
             }
+            
+            const now = Date.now();
+            // Update every second
+            if (now - lastTimeUpdate >= 1000) {
+                updateDateTime();
+                lastTimeUpdate = now;
+            }
+            
+            // Schedule next frame only if page is still visible
+            if (!document.hidden) {
+                timeUpdateAnimationFrame = requestAnimationFrame(timeUpdateLoop);
+            }
+        } catch (error) {
+            console.error('Error in time update loop:', error);
+            // Don't schedule next frame on error
         }
-    }, 1000);
+    }
+    timeUpdateLoop();
     
     // Add click handler to time element to toggle format
     if (timeElement) {
@@ -1443,12 +1458,20 @@ function init() {
     }
     weatherUpdateInterval = setInterval(() => {
         try {
+            // Stop interval if page is hidden or document is invalid
+            if (document.hidden || !document.body || !weatherElement) {
+                if (weatherUpdateInterval) {
+                    clearInterval(weatherUpdateInterval);
+                    weatherUpdateInterval = null;
+                }
+                return;
+            }
             updateWeather();
         } catch (error) {
             console.error('Error in weather update:', error);
             if (weatherUpdateInterval) {
                 clearInterval(weatherUpdateInterval);
-                timeUpdateInterval = null;
+                weatherUpdateInterval = null;
             }
         }
     }, 600000);
@@ -1616,11 +1639,12 @@ function showNotification(message, type = 'info') {
 
 function cleanup() {
     try {
-        // Clear all intervals to prevent memory leaks
-        if (timeUpdateInterval) {
-            clearInterval(timeUpdateInterval);
-            timeUpdateInterval = null;
+        // Cancel animation frame for time updates
+        if (timeUpdateAnimationFrame) {
+            cancelAnimationFrame(timeUpdateAnimationFrame);
+            timeUpdateAnimationFrame = null;
         }
+        // Clear weather update interval
         if (weatherUpdateInterval) {
             clearInterval(weatherUpdateInterval);
             weatherUpdateInterval = null;
