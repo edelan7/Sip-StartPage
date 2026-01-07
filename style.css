@@ -1344,10 +1344,11 @@ body {
 
 /* Category & Link Management */
 .categories-list,
-.links-list {
+.links-list,
+#quotes-list {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-md);
     max-height: 300px;
     overflow-y: auto;
 }
@@ -1413,6 +1414,35 @@ body {
     flex: 2;
 }
 
+.quote-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: var(--surface0);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border);
+}
+
+.quote-input {
+    flex: 1;
+    padding: var(--spacing-sm);
+    background: var(--mantle);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.85rem;
+    outline: none;
+    resize: vertical;
+    min-height: 60px;
+    line-height: 1.4;
+}
+
+.quote-input:focus {
+    border-color: var(--primary);
+}
+
 .delete-btn {
     width: 32px;
     height: 32px;
@@ -1437,7 +1467,9 @@ body {
     align-items: center;
     justify-content: center;
     gap: var(--spacing-sm);
+    width: 100%;
     padding: var(--spacing-md);
+    margin-top: var(--spacing-sm);
     background: var(--surface0);
     border: 1px dashed var(--glass-border);
     border-radius: var(--radius-md);
@@ -1671,6 +1703,39 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
+/* ======================================== */
+/* Density Mode Adjustments */
+/* ======================================== */
+
+/* Compact mode reduces spacing for a tighter layout */
+[data-density="compact"] .search-box {
+    padding: 0.375rem var(--spacing-md);
+}
+
+[data-density="compact"] #search {
+    padding: 0.5rem 0;
+    font-size: 1rem;
+}
+
+[data-density="compact"] .link-card {
+    padding: 0.625rem;
+    gap: 0.5rem;
+}
+
+[data-density="compact"] .link-icon {
+    font-size: 1.1rem;
+    width: 24px;
+    height: 24px;
+}
+
+[data-density="compact"] .link-text {
+    font-size: 0.85rem;
+}
+
+/* ======================================== */
+/* Responsive Adjustments */
+/* ======================================== */
 
 /* Responsive adjustments */
 @media (max-width: 1200px) {

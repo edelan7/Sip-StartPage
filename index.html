@@ -139,6 +139,17 @@
                         
                         <div class="setting-item">
                             <div class="setting-label">
+                                <i class="fa-solid fa-compress"></i>
+                                <span>Layout Density</span>
+                            </div>
+                            <div class="setting-toggle">
+                                <button class="toggle-btn" data-setting="density" data-value="comfy"><i class="fa-solid fa-arrows-left-right"></i> Comfy</button>
+                                <button class="toggle-btn" data-setting="density" data-value="compact"><i class="fa-solid fa-compress-arrows-alt"></i> Compact</button>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <div class="setting-label">
                                 <i class="fa-solid fa-map-marker-alt"></i>
                                 <span>Weather Location</span>
                             </div>
@@ -372,7 +383,7 @@
                     
                     <!-- Categories Tab -->
                     <div class="settings-panel" data-panel="categories">
-                        <p class="panel-description">Add up to 8 categories. You can use emoji or text for icons.</p>
+                        <p class="panel-description">Add up to 8 categories. Assign an icon with text, or leave the icon field blank for text only.</p>
                         <div class="categories-list" id="categories-list">
                             <!-- Categories will be populated dynamically -->
                         </div>
@@ -476,6 +487,17 @@
                                 <option value="socials">Social Links</option>
                                 <option value="quotes">Quotes</option>
                             </select>
+                        </div>
+                        
+                        <div class="setting-item-vertical">
+                            <div class="setting-label">
+                                <i class="fa-solid fa-quote-left"></i>
+                                <span>Custom Quotes</span>
+                            </div>
+                            <div id="quotes-list"></div>
+                            <button id="add-quote-btn" class="add-btn">
+                                <i class="fa-solid fa-plus"></i> Add Quote
+                            </button>
                         </div>
                     </div>
                     

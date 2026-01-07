@@ -128,12 +128,24 @@ function loadSettings() {
         openWeatherApiKey: '',
         linkBehavior: 'same',
         showKeyboardHints: 'true',
+        density: 'comfy',
         headerLeft: 'greeting',
         headerRight: 'time-date',
         footerLeft: 'weather',
         footerCenter: 'blank',
         footerRight: 'quotes',
         socialLinks: [],
+        quotes: [
+            '"The only way to do great work is to love what you do." - Steve Jobs',
+            '"First, solve the problem. Then, write the code." - John Johnson',
+            '"Simplicity is the soul of efficiency." - Austin Freeman',
+            '"Make it work, make it right, make it fast." - Kent Beck',
+            '"Talk is cheap. Show me the code." - Linus Torvalds',
+            '"Creativity is intelligence having fun." - Albert Einstein',
+            '"Done is better than perfect." - Sheryl Sandberg',
+            '"Stay hungry, stay foolish." - Steve Jobs',
+            '"Code is like humor. When you have to explain it, it\'s bad." - Cory House'
+        ],
         customColors: {
             primary: '#cba6f7',
             secondary: '#89b4fa',
@@ -159,12 +171,14 @@ function loadSettings() {
         openWeatherApiKey: localStorage.getItem('openWeatherApiKey') ??  defaults.openWeatherApiKey,
         linkBehavior: localStorage.getItem('linkBehavior') ?? defaults.linkBehavior,
         showKeyboardHints: localStorage.getItem('showKeyboardHints') ?? defaults.showKeyboardHints,
+        density: localStorage.getItem('density') ?? defaults.density,
         headerLeft: localStorage.getItem('headerLeft') ?? defaults.headerLeft,
         headerRight: localStorage.getItem('headerRight') ?? defaults.headerRight,
         footerLeft: localStorage.getItem('footerLeft') ?? defaults.footerLeft,
         footerCenter: localStorage.getItem('footerCenter') ?? defaults.footerCenter,
         footerRight: localStorage.getItem('footerRight') ?? defaults.footerRight,
         socialLinks: JSON.parse(localStorage.getItem('socialLinks')) ?? defaults.socialLinks,
+        quotes: JSON.parse(localStorage.getItem('quotes')) ?? defaults.quotes,
         customColors: JSON.parse(localStorage.getItem('customColors') || JSON.stringify(defaults.customColors)),
         backgroundImage: localStorage.getItem('backgroundImage') || null,
         backgroundSize: localStorage.getItem('backgroundSize') || 'cover',
@@ -422,9 +436,15 @@ function applyColorMode(mode) {
     renderLinksGrid();
 }
 
+function applyDensity(density) {
+    document.documentElement.setAttribute('data-density', density);
+    saveSettings('density', density);
+}
+
 // Apply saved theme and color scheme immediately
 applyTheme(settings.theme);
 applyColorScheme(settings.colorScheme);
+applyDensity(settings.density);
 
 // If custom scheme is active, apply custom colors
 if (settings.colorScheme === 'custom') {
@@ -845,17 +865,7 @@ function showMockWeather() {
 // Quotes Function
 // ========================================
 
-const quotes = [
-    '"The only way to do great work is to love what you do." - Steve Jobs',
-    '"First, solve the problem.  Then, write the code." - John Johnson',
-    '"Simplicity is the soul of efficiency." - Austin Freeman',
-    '"Make it work, make it right, make it fast." - Kent Beck',
-    '"Talk is cheap. Show me the code." - Linus Torvalds',
-    '"Creativity is intelligence having fun." - Albert Einstein',
-    '"Done is better than perfect." - Sheryl Sandberg',
-    '"Stay hungry, stay foolish." - Steve Jobs',
-    '"Code is like humor. When you have to explain it, it\'s bad." - Cory House',
-];
+// Remove the hardcoded quotes array - now using settings.quotes
 
 function updateQuote() {
     const quoteWidget = document.querySelector('.quote-widget');
@@ -863,8 +873,13 @@ function updateQuote() {
     
     if (settings.showQuotes === 'true') {
         quoteWidget.style.display = 'flex';
-        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-        quoteElement.textContent = randomQuote;
+        const quotes = settings.quotes || [];
+        if (quotes.length > 0) {
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            quoteElement.textContent = randomQuote;
+        } else {
+            quoteElement.textContent = '"Add some quotes in Settings!"';
+        }
     } else {
         quoteWidget.style.display = 'none';
     }
@@ -1198,6 +1213,7 @@ function initSettings() {
                 renderHeaderSettings();
             } else if (tabId === 'footer') {
                 renderFooterSettings();
+                renderQuotesSettings();
             } else if (tabId === 'help') {
                 // Help tab - content is static in HTML
             }
@@ -1219,6 +1235,8 @@ function initSettings() {
                 applyTheme(value);
             } else if (setting === 'colorMode') {
                 applyColorMode(value);
+            } else if (setting === 'density') {
+                applyDensity(value);
             } else if (setting === 'timeFormat') {
                 updateDateTime();
             } else if (setting === 'showSeconds') {
@@ -1430,6 +1448,18 @@ function initSettings() {
         addLinkBtn.addEventListener('click', addLink);
     }
     
+    // Add quote button
+    const addQuoteBtn = document.getElementById('add-quote-btn');
+    if (addQuoteBtn) {
+        addQuoteBtn.addEventListener('click', () => {
+            if (settings.quotes.length < 20) {
+                settings.quotes.push('"Your new quote here" - Author');
+                saveSettings('quotes', settings.quotes);
+                renderQuotesSettings();
+            }
+        });
+    }
+    
     // Category selector for links
     const linkCategorySelect = document.getElementById('link-category-select');
     if (linkCategorySelect) {
@@ -1522,6 +1552,20 @@ function updateToggleStates() {
 // Category Management
 // ========================================
 
+// Helper function to parse Font Awesome HTML and extract icon classes
+function parseIconInput(input) {
+    // If it looks like HTML (contains < or >), parse it
+    if (input.includes('<') || input.includes('>')) {
+        // Match class attribute content: class="fa-solid fa-play"
+        const classMatch = input.match(/class=["']([^"']+)["']/);
+        if (classMatch && classMatch[1]) {
+            return classMatch[1];
+        }
+    }
+    // Return as-is if not HTML
+    return input;
+}
+
 function renderCategoriesSettings() {
     const container = document.getElementById('categories-list');
     const addBtn = document.getElementById('add-category-btn');
@@ -1565,14 +1609,24 @@ function renderCategoriesSettings() {
                 const field = input.dataset.field;
                 const category = categories.find(c => c.id === categoryId);
                 if (category) {
-                    category[field] = input.value;
+                    // Parse icon input to handle Font Awesome HTML
+                    let value = input.value;
+                    if (field === 'icon') {
+                        value = parseIconInput(value);
+                        // Update the input field with parsed value
+                        if (value !== input.value) {
+                            input.value = value;
+                        }
+                    }
+                    
+                    category[field] = value;
                     saveCategories(categories);
                     renderLinksGrid();
                     updateLinkCategorySelect();
                     
                     // Update icon preview
                     if (field === 'icon' && iconPreview) {
-                        iconPreview.className = input.value || 'fa-solid fa-folder';
+                        iconPreview.className = value || 'fa-solid fa-folder';
                     }
                 }
             });
@@ -1762,13 +1816,23 @@ function renderLinksForCategory(categoryId) {
             input.addEventListener('input', () => {
                 const field = input.dataset.field;
                 if (links[categoryId] && links[categoryId][index]) {
-                    links[categoryId][index][field] = input.value;
+                    // Parse icon input to handle Font Awesome HTML
+                    let value = input.value;
+                    if (field === 'icon') {
+                        value = parseIconInput(value);
+                        // Update the input field with parsed value
+                        if (value !== input.value) {
+                            input.value = value;
+                        }
+                    }
+                    
+                    links[categoryId][index][field] = value;
                     saveLinks(links);
                     renderLinksGrid();
                     
                     // Update icon preview
                     if (field === 'icon' && iconPreview) {
-                        iconPreview.className = input.value || 'fa-solid fa-link';
+                        iconPreview.className = value || 'fa-solid fa-link';
                     }
                 }
             });
@@ -1934,6 +1998,57 @@ function renderSocialLinksSettings() {
             settings.socialLinks[index].url = e.target.value;
             saveSettings('socialLinks', settings.socialLinks);
             updateFooter();
+        });
+    });
+}
+
+// ========================================
+// Quotes Management
+// ========================================
+
+function renderQuotesSettings() {
+    const container = document.getElementById('quotes-list');
+    const addBtn = document.getElementById('add-quote-btn');
+    
+    if (!container) return;
+    
+    container.innerHTML = settings.quotes.map((quote, index) => `
+        <div class="quote-item" data-index="${index}">
+            <textarea 
+                class="quote-input" 
+                placeholder='"Your quote here" - Author' 
+                data-index="${index}" 
+                rows="2"
+            >${quote}</textarea>
+            <button class="delete-btn" data-index="${index}" title="Delete Quote" ${settings.quotes.length <= 1 ? 'disabled' : ''}>
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </div>
+    `).join('');
+    
+    if (addBtn) {
+        addBtn.disabled = settings.quotes.length >= 20;
+    }
+    
+    // Bind events
+    container.querySelectorAll('.quote-input').forEach(input => {
+        input.addEventListener('input', (e) => {
+            const index = parseInt(e.target.dataset.index);
+            settings.quotes[index] = e.target.value;
+            saveSettings('quotes', settings.quotes);
+            updateQuote();
+        });
+    });
+    
+    container.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const index = parseInt(e.target.dataset.index);
+            if (settings.quotes.length > 1) {
+                settings.quotes.splice(index, 1);
+                saveSettings('quotes', settings.quotes);
+                renderQuotesSettings();
+                updateQuote();
+            }
         });
     });
 }
