@@ -7,6 +7,7 @@ build-safari.sh
 # Store submission documents
 SUBMISSION_GUIDE.md
 RELEASE_NOTES_*.md
+FIREFOX_VALIDATION_FIXES.md
 APP-STORE-CHECKLIST.md
 SAFARI*.md
 START-HERE.txt
