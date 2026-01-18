@@ -8,10 +8,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "sip-startpage@bgibson72",
-      "strict_min_version": "109.0",
-      "data_collection_permissions": {
-        "required": ["none"]
-      }
+      "strict_min_version": "109.0"
     }
   },
   
@@ -26,16 +23,5 @@
     "128": "icons/icon128.png"
   },
 
-  "permissions": [],
-
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "fonts/*",
-        "style.css",
-        "script.js"
-      ],
-      "matches": ["<all_urls>"]
-    }
-  ]
+  "permissions": []
 }
