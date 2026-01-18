@@ -1351,6 +1351,15 @@ body {
     font-size: 0.9rem;
 }
 
+.upload-btn {
+    background: var(--surface1);
+    color: var(--text);
+}
+
+.upload-btn:hover {
+    background: var(--surface2);
+}
+
 /* Legacy backup button styles - keep for backwards compatibility */
 .backup-buttons {
     display: flex;
