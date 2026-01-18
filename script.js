@@ -3019,7 +3019,8 @@ function importSelectedBookmarks() {
     
     // Re-render UI
     renderLinksGrid();
-    renderCategoriesPanel();
+    renderCategoriesSettings();
+    renderLinksSettings();
     
     // Close wizard and show success
     document.getElementById('import-wizard-overlay').classList.remove('active');
