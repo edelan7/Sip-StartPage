@@ -1,0 +1,72 @@
+☕ Sip - Your Cozy New Tab Page
+
+Transform your browser's new tab into a beautiful, personalized workspace with Sip. Featuring stunning color themes, glassmorphism effects, and intelligent customization, Sip makes every new tab a delightful experience.
+
+🎉 WHAT'S NEW IN VERSION 1.5.1
+
+⚙️ New Customization Options
+• Search Bar visibility toggle - Show or hide the search bar to maximize space
+• Preferred Grid Columns setting - Choose between Auto, 1, 2, 3, or 4 columns for your link categories
+• Better control over your workspace layout
+• All settings persist across browser sessions
+
+📦 VERSION 1.5.0 FEATURES
+
+📱 Full Mobile Support
+• Floating Action Button (FAB) for easy settings access
+• Touch-optimized interface with proper touch targets
+• Responsive settings modal that adapts to mobile screens
+• Mobile-first defaults for optimal experience
+• Clean search with engine indicators
+• Smooth touch feedback and performance
+
+🔍 Kagi Search Engine
+• Now supports 10 search providers including the new Kagi search engine
+
+✨ KEY FEATURES
+
+Beautiful Design
+• 9 stunning color schemes (Catppuccin, Nord, Gruvbox, Tokyo Night, Dracula, Solarized, Kanagawa, Ayu, Monochrome)
+• Light & Dark modes for every theme (18 total combinations)
+• Modern glassmorphism UI with ambient glow effects
+• Smooth animations and responsive layout
+
+Smart Search
+• Integrated search with your default engine
+• Quick switching between 10 search providers
+• Keyboard shortcuts for lightning-fast navigation
+
+Personalization
+• Dynamic time-based greetings with beautiful icons
+• Real-time weather integration
+• Click clock to toggle 12h/24h format
+• Optional seconds display
+• Customizable quick links (up to 8 categories, 10 links each)
+• Social links integration with 10 platforms
+• Customizable footer layout
+• Bookmark Import Wizard for easy migration
+• Backup & Restore functionality
+
+Productivity
+• Organize sites in customizable categories
+• Link behavior control (same window, new tab, or new window)
+• Built-in help system
+• Keyboard shortcuts with optional hint overlays
+• Fully mobile responsive with touch-optimized interface
+• All settings persist locally
+
+Privacy First
+• No data collection or tracking
+• All preferences stored locally on your device
+• Open source and transparent
+• No remote servers (except optional OpenWeather API)
+
+🎯 PERFECT FOR
+
+• Developers who want quick access to GitHub and dev tools
+• Anyone who values beautiful, functional design
+• Users who want a personalized browsing experience
+• Privacy-conscious individuals
+• Mobile and desktop users alike
+
+Made with ☕ and 💜 using Catppuccin themes

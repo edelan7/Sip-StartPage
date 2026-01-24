@@ -135,6 +135,8 @@ function loadSettings() {
         showSeconds: 'false',
         tempUnit: 'F',
         showQuotes: 'true',
+        showSearchBar: 'true',
+        preferredColumns: 'auto',
         enabledEngines: mobile ? ['google'] : ['google', 'duckduckgo', 'github', 'youtube'],
         preferredEngine: 'google',
         weatherLocation: 'New York,NY,US',
@@ -178,6 +180,8 @@ function loadSettings() {
         showSeconds: localStorage.getItem('showSeconds') ?? defaults.showSeconds,
         tempUnit: localStorage.getItem('tempUnit') ?? defaults.tempUnit,
         showQuotes: localStorage.getItem('showQuotes') ?? defaults.showQuotes,
+        showSearchBar: localStorage.getItem('showSearchBar') ?? defaults.showSearchBar,
+        preferredColumns: localStorage.getItem('preferredColumns') ?? defaults.preferredColumns,
         enabledEngines: JSON.parse(localStorage.getItem('enabledEngines')) ?? defaults.enabledEngines,
         preferredEngine: localStorage.getItem('preferredEngine') ?? defaults.preferredEngine,
         weatherLocation: localStorage.getItem('weatherLocation') ?? defaults.weatherLocation,
@@ -452,6 +456,28 @@ function applyColorMode(mode) {
 function applyDensity(density) {
     document.documentElement.setAttribute('data-density', density);
     saveSettings('density', density);
+}
+
+function applySearchVisibility() {
+    const searchRow = document.querySelector('.search-row');
+    const isVisible = settings.showSearchBar !== 'false';
+
+    if (searchRow) {
+        searchRow.classList.toggle('search-hidden', !isVisible);
+    }
+
+    if (searchInput) {
+        searchInput.disabled = !isVisible;
+        if (!isVisible) {
+            searchInput.value = '';
+            searchInput.blur();
+            searchInput.setAttribute('tabindex', '-1');
+        } else {
+            searchInput.removeAttribute('tabindex');
+        }
+    }
+
+    updateKeyboardHints();
 }
 
 // Apply saved theme and color scheme immediately
@@ -1314,8 +1340,19 @@ function updateGridLayout() {
     if (!linksGrid) return;
     
     const categoryCount = categories.length;
-    
-    linksGrid.classList.remove('grid-single', 'grid-even', 'grid-odd');
+
+    linksGrid.classList.remove('grid-single', 'grid-even', 'grid-odd', 'grid-custom');
+    linksGrid.style.removeProperty('--links-grid-columns');
+
+    const preferredColumns = settings.preferredColumns || 'auto';
+    const preferredValue = parseInt(preferredColumns, 10);
+
+    if (preferredColumns !== 'auto' && Number.isFinite(preferredValue) && preferredValue > 0) {
+        const safeColumns = Math.min(4, Math.max(1, preferredValue));
+        linksGrid.classList.add('grid-custom');
+        linksGrid.style.setProperty('--links-grid-columns', safeColumns);
+        return;
+    }
     
     if (categoryCount === 1) {
         linksGrid.classList.add('grid-single');
@@ -1430,6 +1467,8 @@ function initSettings() {
                 renderLinksGrid();
             } else if (setting === 'showKeyboardHints') {
                 updateKeyboardHints();
+            } else if (setting === 'showSearchBar') {
+                applySearchVisibility();
             } else if (setting === 'headerLeft' || setting === 'headerRight') {
                 updateHeader();
             } else if (setting === 'footerLeft' || setting === 'footerCenter' || setting === 'footerRight') {
@@ -1507,6 +1546,15 @@ function initSettings() {
                     });
                 }
             }
+        });
+    }
+    
+    // Preferred columns dropdown handler
+    const preferredColumnsSelect = document.getElementById('setting-preferred-columns');
+    if (preferredColumnsSelect) {
+        preferredColumnsSelect.addEventListener('change', (e) => {
+            saveSettings('preferredColumns', e.target.value);
+            updateGridLayout();
         });
     }
     
@@ -1704,6 +1752,12 @@ function populateSettingsUI() {
     const apiKeyInput = document.getElementById('setting-weather-api-key');
     if (apiKeyInput) {
         apiKeyInput.value = settings.openWeatherApiKey;
+    }
+    
+    // Populate preferred columns dropdown
+    const preferredColumnsSelect = document.getElementById('setting-preferred-columns');
+    if (preferredColumnsSelect) {
+        preferredColumnsSelect.value = settings.preferredColumns || 'auto';
     }
     
     // Populate search engine checkboxes
